@@ -29,6 +29,7 @@ class PowerUps(pg.sprite.Sprite, Object):
         image = pg.image.load('images/benefits.png')
         if effect == 1:
             image = pg.image.load('images/medicine.png')
+            print("Error powerup not supported")
         Object.__init__(self, x, y, image, game)
         self.groups = game.all_sprites, game.power_ups_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
@@ -38,17 +39,18 @@ class PowerUps(pg.sprite.Sprite, Object):
 
     def acquired_by(self, character):
         if self.effect == 0:
-            character.range_fire += 1
+            character.range_fire = 4
         elif self.effect == 1:
-            min = math.inf
-            max = - math.inf
-            for feasible in character.feasible_move:
-                if feasible.id > max:
-                    max = feasible.id
-                if feasible.id < min:
-                    min = feasible.id
-            for i in [min - 1, max + 1]:
-                character.feasible_move.append(FeasibleMove(self.game, self.game.player, i))
+            character.range_fire = 1
+            # min = math.inf
+            # max = - math.inf
+            # for feasible in character.feasible_move:
+            #     if feasible.id > max:
+            #         max = feasible.id
+            #     if feasible.id < min:
+            #         min = feasible.id
+            # for i in [min - 1, max + 1]:
+            #     character.feasible_move.append(FeasibleMove(self.game, self.game.player, i))
         self.kill()
 
 
